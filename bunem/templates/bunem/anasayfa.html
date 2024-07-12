@@ -1,6 +1,16 @@
+<!DOCTYPE html>
 <html>
+<head>
+    <title>Nordel</title>
+</head>
 <body>
-    <p>Nordel Seçim Programı</p>
-    <p>Çalışıyor!</p>
+    <h1>Buharlı Nemlendirme Ünitesi Kapasite Hesaplama Formu</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Hesapla</button>
+    </form>
+    <h2>Moisture Content: {{ moisture_content|floatformat:"3" }}</h2>
+    <h2>Saturation Moisture Content: {{ s_moisture_value|floatformat:"3" }}</h2>
 </body>
 </html>
