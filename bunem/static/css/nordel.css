@@ -1,0 +1,10 @@
+footer img {
+    width: 150px;
+    -webkit-filter: drop-shadow(3px 3px 3px #666666);
+    filter: drop-shadow(3px 3px 3px #666666);
+}
+input {
+    text-align: right;
+    padding-right: 10px;
+    float: right;
+}

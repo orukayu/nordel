@@ -51,4 +51,4 @@ def anasayfayap(request):
         'specific_enthalpy': specific_enthalpy,
         'specific_volume': specific_volume,
     }
-    return render(request, 'bunem/anasayfa.html', context)
+    return render(request, 'bunem/ana.html', context)
