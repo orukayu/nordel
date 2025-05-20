@@ -107,6 +107,25 @@
       }
     </style>
 
+    <script>
+      // CSRF token cookie'den al
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+      const csrftoken = getCookie('csrftoken');
+    </script>
+
   </head>
   <body>
 
@@ -135,7 +154,7 @@
       <main>
         <div class="row g-5">
           <div class="col">
-            <form method="POST" action="">
+            <form method="POST" action="" id="degerler-form">
               {% csrf_token %}
               <div class="row g-3 justify-content-center mb-4">
                 <div class="col-md-4">
@@ -170,27 +189,27 @@
                   <tbody>
                     <tr>
                       <th scope="row" class="text-start">Moisture Content</th>
-                      <td>{{ moisture_content|floatformat:"3" }} g/kg</td>
+                      <td id="moisture_content">{{ moisture_content|floatformat:"3" }} g/kg</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Specific Volume</th>
-                      <td>{{ specific_volume|floatformat:"3" }} m³/kg</td>
+                      <td id="specific_volume">{{ specific_volume|floatformat:"3" }} m³/kg</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Specific Enthalpy</th>
-                      <td>{{ specific_enthalpy|floatformat:"3" }} kJ/kg</td>
+                      <td id="specific_enthalpy">{{ specific_enthalpy|floatformat:"3" }} kJ/kg</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Saturation Moisture Content</th>
-                      <td>{{ s_moisture_value|floatformat:"3" }} g/kg</td>
+                      <td id="s_moisture_value">{{ s_moisture_value|floatformat:"3" }} g/kg</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Specific Enthalpy Dry Air</th>
-                      <td>{{ specific_enthalpy_dry_air|floatformat:"3" }} kJ/kg</td>
+                      <td id="specific_enthalpy_dry_air">{{ specific_enthalpy_dry_air|floatformat:"3" }} kJ/kg</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Saturation Vapour Pressure</th>
-                      <td>{{ vapour_pressure|floatformat:"3" }} Pa</td>
+                      <td id="vapour_pressure">{{ vapour_pressure|floatformat:"3" }} Pa</td>
                     </tr>
                   </tbody>
                 </table>
@@ -300,6 +319,62 @@
       </footer>
     </div>
     <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("degerler-form");
+
+        function guncelleSonuclar() {
+          const formData = new FormData(form);
+
+          fetch("{% url 'hesaplama_ajax' %}", {
+            method: "POST",
+            headers: {
+              "X-Requested-With": "XMLHttpRequest",
+              "X-CSRFToken": csrftoken
+            },
+            body: formData
+          })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error("Sunucu hatası");
+              }
+              return response.json();
+            })
+            .then(data => {
+              if (data.error) {
+                alert(data.error);
+                return;
+              }
+
+              document.getElementById("moisture_content").textContent = data.moisture_content.toFixed(3) + " g/kg";
+              document.getElementById("specific_volume").textContent = data.specific_volume.toFixed(3) + " m³/kg";
+              document.getElementById("specific_enthalpy").textContent = data.specific_enthalpy.toFixed(3) + " kJ/kg";
+              document.getElementById("s_moisture_value").textContent = data.s_moisture_value.toFixed(3) + " g/kg";
+              document.getElementById("specific_enthalpy_dry_air").textContent = data.specific_enthalpy_dry_air.toFixed(3) + " kJ/kg";
+              document.getElementById("vapour_pressure").textContent = data.vapour_pressure.toFixed(3) + " Pa";
+            })
+            .catch(error => {
+              console.error("Hata:", error);
+              alert("Bir hata oluştu, lütfen tekrar deneyin.");
+            });
+        }
+
+        // Sayfa ilk açıldığında bir kez çalıştır
+        guncelleSonuclar();
+
+        // Form değiştikçe çalıştır
+        form.addEventListener("change", guncelleSonuclar);
+      });
+    </script>
+
+    <script>
+    console.log("JS yüklendi");
+
+    document.addEventListener('DOMContentLoaded', function () {
+      console.log("Sayfa yüklendi");
+    });
+    </script>
 
   </body>
 </html>
