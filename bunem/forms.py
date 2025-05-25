@@ -13,17 +13,17 @@ class DegerlerForm(forms.ModelForm):
             'CB_Nemi': 'ÇB Nemi'
         }
         widgets = {
-            'Airflow': forms.TextInput(attrs={'class': 'form-control'}),
-            'GKT_Sicakligi': forms.TextInput(attrs={'class': 'form-control'}),
-            'GB_Nemi': forms.TextInput(attrs={'class': 'form-control'}),
-            'CKT_Sicakligi': forms.TextInput(attrs={'class': 'form-control'}),
-            'CB_Nemi': forms.TextInput(attrs={'class': 'form-control'}),
+            'Airflow': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'GKT_Sicakligi': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'GB_Nemi': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'CKT_Sicakligi': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'CB_Nemi': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
         }
 
     def __init__(self, *args, **kwargs):
         super(DegerlerForm, self).__init__(*args, **kwargs)
         self.fields['Airflow'].initial = 3.62
-        self.fields['GKT_Sicakligi'].initial = 23
-        self.fields['GB_Nemi'].initial = 80
-        self.fields['CKT_Sicakligi'].initial = 14.8
-        self.fields['CB_Nemi'].initial = 95
+        self.fields['GKT_Sicakligi'].initial = 23.65
+        self.fields['GB_Nemi'].initial = 80.79
+        self.fields['CKT_Sicakligi'].initial = 14.83
+        self.fields['CB_Nemi'].initial = 95.04

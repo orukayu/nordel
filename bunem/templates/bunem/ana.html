@@ -105,6 +105,10 @@
       .bd-mode-toggle .dropdown-menu .active .bi {
         display: block !important;
       }
+
+      td {
+        text-align: end;
+      }
     </style>
 
     <script>
@@ -159,30 +163,33 @@
               <div class="row g-3 justify-content-center mb-4">
                 <div class="col-md-4">
                   <div>
-                    <label class="form-label">Giriş Kuru Termometre Sıcaklığı</label>
+                    <label class="form-label">Giriş Kuru Termometre Sıcaklığı <span class="text-body-secondary">[°C (db)]</span></label>
                     {{ form.GKT_Sicakligi }}
                   </div>
                   <div>
-                    <label class="form-label" style="padding-top: 25px;">Giriş Bağıl Nemi</label>
+                    <label class="form-label" style="padding-top: 25px;">Giriş Bağıl Nemi <span class="text-body-secondary">[% rh]</span></label>
                     {{ form.GB_Nemi }}
                   </div>
                 </div>
                 <div class="col-md-4 d-flex align-items-center text-center justify-content-center" style="flex-direction: column;">
-                  <label class="form-label">Hava Debisi</label>
+                  <label class="form-label">Hava Debisi <span class="text-body-secondary">[m³/s]</span></label>
                   {{ form.Airflow }}
                 </div>
                 <div class="col-md-4">
                   <div>
-                    <label class="form-label">Çıkış Kuru Termometre Sıcaklığı</label>
+                    <label class="form-label">Çıkış Kuru Termometre Sıcaklığı <span class="text-body-secondary">[°C (db)]</span></label>
                     {{ form.CKT_Sicakligi }}
                   </div>
                   <div>
-                    <label class="form-label" style="padding-top: 25px;">Çıkış Bağıl Nemi</label>
+                    <label class="form-label" style="padding-top: 25px;">Çıkış Bağıl Nemi <span class="text-body-secondary">[% rh]</span></label>
                     {{ form.CB_Nemi }}
                   </div>
                 </div>
               </div>
             </form>
+
+            <h4 class="text-center mb-3">Hygrometric Data ( 0 °C to 45 °C )</h4>
+
             <div class="row">
               <div class="col-md-4 table-responsive mt-4">
                 <table class="table text-center">
@@ -209,7 +216,7 @@
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Saturation Vapour Pressure</th>
-                      <td id="vapour_pressure">{{ vapour_pressure|floatformat:"3" }} Pa</td>
+                      <td id="saturation_vapour_pressure">{{ saturation_vapour_pressure|floatformat:"3" }} Pa</td>
                     </tr>
                   </tbody>
                 </table>
@@ -251,27 +258,27 @@
                   <tbody>
                     <tr>
                       <th scope="row" class="text-start">Moisture Content</th>
-                      <td>{{ moisture_content|floatformat:"3" }} g/kg</td>
+                      <td id="c_moisture_content">{{ c_moisture_content|floatformat:"3" }} g/kg</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Specific Volume</th>
-                      <td>{{ specific_volume|floatformat:"3" }} m³/kg</td>
+                      <td id="c_specific_volume">{{ c_specific_volume|floatformat:"3" }} m³/kg</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Specific Enthalpy</th>
-                      <td>{{ specific_enthalpy|floatformat:"3" }} kJ/kg</td>
+                      <td id="c_specific_enthalpy">{{ c_specific_enthalpy|floatformat:"3" }} kJ/kg</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Saturation Moisture Content</th>
-                      <td>{{ s_moisture_value|floatformat:"3" }} g/kg</td>
+                      <td id="c_s_moisture_value">{{ c_s_moisture_value|floatformat:"3" }} g/kg</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Specific Enthalpy Dry Air</th>
-                      <td>{{ specific_enthalpy_dry_air|floatformat:"3" }} kJ/kg</td>
+                      <td id="c_specific_enthalpy_dry_air">{{ c_specific_enthalpy_dry_air|floatformat:"3" }} kJ/kg</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Saturation Vapour Pressure</th>
-                      <td>{{ vapour_pressure|floatformat:"3" }} Pa</td>
+                      <td id="c_saturation_vapour_pressure">{{ c_saturation_vapour_pressure|floatformat:"3" }} Pa</td>
                     </tr>
                   </tbody>
                 </table>
@@ -352,7 +359,13 @@
               document.getElementById("specific_enthalpy").textContent = data.specific_enthalpy.toFixed(3) + " kJ/kg";
               document.getElementById("s_moisture_value").textContent = data.s_moisture_value.toFixed(3) + " g/kg";
               document.getElementById("specific_enthalpy_dry_air").textContent = data.specific_enthalpy_dry_air.toFixed(3) + " kJ/kg";
-              document.getElementById("vapour_pressure").textContent = data.vapour_pressure.toFixed(3) + " Pa";
+              document.getElementById("saturation_vapour_pressure").textContent = data.saturation_vapour_pressure.toFixed(3) + " Pa";
+              document.getElementById("c_moisture_content").textContent = data.c_moisture_content.toFixed(3) + " g/kg";
+              document.getElementById("c_specific_volume").textContent = data.c_specific_volume.toFixed(3) + " m³/kg";
+              document.getElementById("c_specific_enthalpy").textContent = data.c_specific_enthalpy.toFixed(3) + " kJ/kg";
+              document.getElementById("c_s_moisture_value").textContent = data.c_s_moisture_value.toFixed(3) + " g/kg";
+              document.getElementById("c_specific_enthalpy_dry_air").textContent = data.c_specific_enthalpy_dry_air.toFixed(3) + " kJ/kg";
+              document.getElementById("c_saturation_vapour_pressure").textContent = data.c_saturation_vapour_pressure.toFixed(3) + " Pa";
             })
             .catch(error => {
               console.error("Hata:", error);

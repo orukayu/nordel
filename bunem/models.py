@@ -6,11 +6,11 @@ from django.utils import timezone
 
 
 class Degerler(models.Model):
-	Airflow = models.DecimalField(max_digits=4, decimal_places=2)
-	GKT_Sicakligi = models.DecimalField(max_digits=4, decimal_places=1)
-	GB_Nemi = models.IntegerField()
-	CKT_Sicakligi = models.DecimalField(max_digits=4, decimal_places=1)
-	CB_Nemi = models.IntegerField()
+	Airflow = models.DecimalField(max_digits=10, decimal_places=2)
+	GKT_Sicakligi = models.DecimalField(max_digits=10, decimal_places=2)
+	GB_Nemi = models.DecimalField(max_digits=10, decimal_places=2)
+	CKT_Sicakligi = models.DecimalField(max_digits=10, decimal_places=2)
+	CB_Nemi = models.DecimalField(max_digits=10, decimal_places=2)
 	hesaplamatarihi = models.DateTimeField(default=timezone.now)
 
 	class Meta:
@@ -20,8 +20,8 @@ class Degerler(models.Model):
 		return str(self.hesaplamatarihi)
 
 class Hygrometric(models.Model):
-	DB_Temp = models.PositiveIntegerField()
-	R_Humidity = models.PositiveIntegerField()
+	DB_Temp = models.DecimalField(max_digits=15, decimal_places=9)
+	R_Humidity = models.DecimalField(max_digits=15, decimal_places=9)
 	M_Content = models.DecimalField(max_digits=15, decimal_places=9)
 	S_Volume = models.DecimalField(max_digits=15, decimal_places=9)
 	S_Enthalpy = models.DecimalField(max_digits=15, decimal_places=9)
