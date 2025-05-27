@@ -109,6 +109,14 @@
       td {
         text-align: end;
       }
+      .cooling {
+        color: blue;
+        font-weight: bold;
+      }
+      .heating {
+        color: red;
+        font-weight: bold;
+      }
     </style>
 
     <script>
@@ -226,24 +234,28 @@
                 <table class="table text-center">
                   <tbody>
                     <tr>
-                      <th scope="row" class="text-start">Sensible Cooling</th>
-                      <td>{{ moisture_content|floatformat:"3" }} kW</td>
+                      <th scope="row" class="text-start">
+                        <span id="sc" class="">{{ sc }}</span>
+                      </th>
+                      <td id="g6">{{ g6|floatformat:"3" }} kW</td>
                     </tr>
                     <tr>
-                      <th scope="row" class="text-start">De-humidification</th>
-                      <td>{{ specific_volume|floatformat:"3" }} kW</td>
+                      <th scope="row" class="text-start">
+                        <span id="dh" class="">{{ dh }}</span>
+                      </th>
+                      <td id="g7">{{ g7|floatformat:"3" }} kW</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Energy Change</th>
-                      <td>{{ specific_enthalpy|floatformat:"3" }} kW</td>
+                      <td id="g8">{{ g8|floatformat:"3" }} kW</td>
                     </tr>
                     <tr>
-                      <th scope="row" class="text-start">Water Removed</th>
-                      <td>{{ s_moisture_value|floatformat:"3" }} litres/s</td>
+                      <th scope="row" class="text-start" id="wr">{{ wr }}</th>
+                      <td id="g9">{{ g9|floatformat:"3" }} litres/s</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">-</th>
-                      <td>{{ specific_enthalpy_dry_air|floatformat:"3" }} kg/h</td>
+                      <td id="g10">{{ g10|floatformat:"3" }} kg/h</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">-</th>
@@ -366,6 +378,30 @@
               document.getElementById("c_s_moisture_value").textContent = data.c_s_moisture_value.toFixed(3) + " g/kg";
               document.getElementById("c_specific_enthalpy_dry_air").textContent = data.c_specific_enthalpy_dry_air.toFixed(3) + " kJ/kg";
               document.getElementById("c_saturation_vapour_pressure").textContent = data.c_saturation_vapour_pressure.toFixed(3) + " Pa";
+              document.getElementById("g6").textContent = data.g6.toFixed(3) + " kW";
+              document.getElementById("g9").textContent = data.g9.toFixed(3) + " litres/s";
+              document.getElementById("g7").textContent = data.g7.toFixed(3) + " kW";
+              document.getElementById("g10").textContent = data.g10.toFixed(3) + " kg/h";
+              document.getElementById("g8").textContent = data.g8.toFixed(3) + " kW";
+              document.getElementById("sc").innerText = data.sc;
+              document.getElementById("dh").innerText = data.dh;
+              document.getElementById("wr").innerText = data.wr;
+
+              if (data.sc === "Sensible Cooling") {
+                document.getElementById("sc").className = "cooling";
+              } else if (data.sc === "Heating") {
+                document.getElementById("sc").className = "heating";
+              } else {
+                document.getElementById("sc").className = "";
+              }
+
+              if (data.dh === "De-humidification") {
+                document.getElementById("dh").className = "cooling";
+              } else if (data.dh === "Humidification") {
+                document.getElementById("dh").className = "heating";
+              } else {
+                document.getElementById("dh").className = "";
+              }
             })
             .catch(error => {
               console.error("Hata:", error);

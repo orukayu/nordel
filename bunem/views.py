@@ -19,6 +19,14 @@ def anasayfayap(request):
     c_s_moisture_value = 0
     c_specific_enthalpy_dry_air = 0
     c_saturation_vapour_pressure = 0
+    g6 = 0
+    g9 = 0
+    g7 = 0
+    g10 = 0
+    g8 = 0
+    sc = "Sensible Cooling"
+    dh = "De-humidification"
+    wr = "Water Removed"
     form = DegerlerForm()
 
     context = {
@@ -35,6 +43,14 @@ def anasayfayap(request):
         'c_s_moisture_value': c_s_moisture_value,
         'c_specific_enthalpy_dry_air': c_specific_enthalpy_dry_air,
         'c_saturation_vapour_pressure': c_saturation_vapour_pressure,
+        'g6': g6,
+        'g9': g9,
+        'g7': g7,
+        'g10': g10,
+        'g8': g8,
+        'sc': sc,
+        'dh': dh,
+        'wr': wr,
     }
     return render(request, 'bunem/ana.html', context)
 
@@ -48,6 +64,7 @@ def hesaplama_ajax(request):
             gb_nemi = form.cleaned_data['GB_Nemi']
             ckt_sicakligi = form.cleaned_data['CKT_Sicakligi'].quantize(Decimal(0.00), rounding=ROUND_HALF_UP)
             cb_nemi = form.cleaned_data['CB_Nemi']
+            air_flow = form.cleaned_data['Airflow']
 
             # Veritabanındaki giris sıcaklık değeriyle yaklaşık eşleşme yap
             hygrometric_record = (
@@ -97,6 +114,18 @@ def hesaplama_ajax(request):
                 (Decimal("2.87") + (Decimal("4.61") * c_s_moisture_value * cb_nemi / Decimal("100000")))
             )
 
+            # airflow hesaplamalar
+            g6 = abs(((air_flow * Decimal(2)) / (specific_volume + c_specific_volume)) * (gkt_sicakligi - ckt_sicakligi) * Decimal(1.2))
+            g9 = abs(air_flow * (c_moisture_content - moisture_content))/((specific_volume + c_specific_volume) * Decimal(500))
+            g7 = Decimal(2258) * g9
+            g10 = abs(g9 * Decimal(3600))
+            g8 = abs((air_flow) * (c_specific_enthalpy - specific_enthalpy) / (specific_volume))
+
+            # air baslik formulleri
+            sc = "Sensible Cooling" if (ckt_sicakligi - gkt_sicakligi) < 0 else "Heating"
+            dh = "De-humidification" if (c_moisture_content - moisture_content) < 0 else "Humidification"
+            wr = "Water Removed" if (c_moisture_content - moisture_content) < 0 else "Water Added"
+
             return JsonResponse({
                 'moisture_content': float(moisture_content),
                 'specific_volume': float(specific_volume),
@@ -110,6 +139,14 @@ def hesaplama_ajax(request):
                 'c_s_moisture_value': float(c_s_moisture_value),
                 'c_specific_enthalpy_dry_air': float(c_specific_enthalpy_dry_air),
                 'c_saturation_vapour_pressure': float(c_saturation_vapour_pressure),
+                'g6': float(g6),
+                'g9': float(g9),
+                'g7': float(g7),
+                'g10': float(g10),
+                'g8': float(g8),
+                'sc': sc,
+                'dh': dh,
+                'wr': wr,
             })
         else:
             return JsonResponse({'error': 'Form geçersiz.'}, status=400)
