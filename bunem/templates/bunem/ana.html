@@ -204,27 +204,27 @@
                   <tbody>
                     <tr>
                       <th scope="row" class="text-start">Moisture Content</th>
-                      <td id="moisture_content">{{ moisture_content|floatformat:"3" }} g/kg</td>
+                      <td id="moisture_content">{{ moisture_content|floatformat:"2g" }} g/kg</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Specific Volume</th>
-                      <td id="specific_volume">{{ specific_volume|floatformat:"3" }} m³/kg</td>
+                      <td id="specific_volume">{{ specific_volume|floatformat:"2g" }} m³/kg</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Specific Enthalpy</th>
-                      <td id="specific_enthalpy">{{ specific_enthalpy|floatformat:"3" }} kJ/kg</td>
+                      <td id="specific_enthalpy">{{ specific_enthalpy|floatformat:"2g" }} kJ/kg</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Saturation Moisture Content</th>
-                      <td id="s_moisture_value">{{ s_moisture_value|floatformat:"3" }} g/kg</td>
+                      <td id="s_moisture_value">{{ s_moisture_value|floatformat:"2g" }} g/kg</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Specific Enthalpy Dry Air</th>
-                      <td id="specific_enthalpy_dry_air">{{ specific_enthalpy_dry_air|floatformat:"3" }} kJ/kg</td>
+                      <td id="specific_enthalpy_dry_air">{{ specific_enthalpy_dry_air|floatformat:"2g" }} kJ/kg</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Saturation Vapour Pressure</th>
-                      <td id="saturation_vapour_pressure">{{ saturation_vapour_pressure|floatformat:"3" }} Pa</td>
+                      <td id="saturation_vapour_pressure">{{ saturation_vapour_pressure|floatformat:"2g" }} Pa</td>
                     </tr>
                   </tbody>
                 </table>
@@ -237,25 +237,25 @@
                       <th scope="row" class="text-start">
                         <span id="sc" class="">{{ sc }}</span>
                       </th>
-                      <td id="g6">{{ g6|floatformat:"3" }} kW</td>
+                      <td id="g6">{{ g6|floatformat:"2g" }} kW</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">
                         <span id="dh" class="">{{ dh }}</span>
                       </th>
-                      <td id="g7">{{ g7|floatformat:"3" }} kW</td>
+                      <td id="g7">{{ g7|floatformat:"2g" }} kW</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Energy Change</th>
-                      <td id="g8">{{ g8|floatformat:"3" }} kW</td>
+                      <td id="g8">{{ g8|floatformat:"2g" }} kW</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start" id="wr">{{ wr }}</th>
-                      <td id="g9">{{ g9|floatformat:"3" }} litres/s</td>
+                      <td id="g9">{{ g9|floatformat:"2g" }} litres/s</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">-</th>
-                      <td id="g10">{{ g10|floatformat:"3" }} kg/h</td>
+                      <td id="g10">{{ g10|floatformat:"2g" }} kg/h</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">-</th>
@@ -270,27 +270,27 @@
                   <tbody>
                     <tr>
                       <th scope="row" class="text-start">Moisture Content</th>
-                      <td id="c_moisture_content">{{ c_moisture_content|floatformat:"3" }} g/kg</td>
+                      <td id="c_moisture_content">{{ c_moisture_content|floatformat:"2g" }} g/kg</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Specific Volume</th>
-                      <td id="c_specific_volume">{{ c_specific_volume|floatformat:"3" }} m³/kg</td>
+                      <td id="c_specific_volume">{{ c_specific_volume|floatformat:"2g" }} m³/kg</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Specific Enthalpy</th>
-                      <td id="c_specific_enthalpy">{{ c_specific_enthalpy|floatformat:"3" }} kJ/kg</td>
+                      <td id="c_specific_enthalpy">{{ c_specific_enthalpy|floatformat:"2g" }} kJ/kg</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Saturation Moisture Content</th>
-                      <td id="c_s_moisture_value">{{ c_s_moisture_value|floatformat:"3" }} g/kg</td>
+                      <td id="c_s_moisture_value">{{ c_s_moisture_value|floatformat:"2g" }} g/kg</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Specific Enthalpy Dry Air</th>
-                      <td id="c_specific_enthalpy_dry_air">{{ c_specific_enthalpy_dry_air|floatformat:"3" }} kJ/kg</td>
+                      <td id="c_specific_enthalpy_dry_air">{{ c_specific_enthalpy_dry_air|floatformat:"2g" }} kJ/kg</td>
                     </tr>
                     <tr>
                       <th scope="row" class="text-start">Saturation Vapour Pressure</th>
-                      <td id="c_saturation_vapour_pressure">{{ c_saturation_vapour_pressure|floatformat:"3" }} Pa</td>
+                      <td id="c_saturation_vapour_pressure">{{ c_saturation_vapour_pressure|floatformat:"2g" }} Pa</td>
                     </tr>
                   </tbody>
                 </table>
@@ -366,23 +366,23 @@
                 return;
               }
 
-              document.getElementById("moisture_content").textContent = data.moisture_content.toFixed(3) + " g/kg";
-              document.getElementById("specific_volume").textContent = data.specific_volume.toFixed(3) + " m³/kg";
-              document.getElementById("specific_enthalpy").textContent = data.specific_enthalpy.toFixed(3) + " kJ/kg";
-              document.getElementById("s_moisture_value").textContent = data.s_moisture_value.toFixed(3) + " g/kg";
-              document.getElementById("specific_enthalpy_dry_air").textContent = data.specific_enthalpy_dry_air.toFixed(3) + " kJ/kg";
-              document.getElementById("saturation_vapour_pressure").textContent = data.saturation_vapour_pressure.toFixed(3) + " Pa";
-              document.getElementById("c_moisture_content").textContent = data.c_moisture_content.toFixed(3) + " g/kg";
-              document.getElementById("c_specific_volume").textContent = data.c_specific_volume.toFixed(3) + " m³/kg";
-              document.getElementById("c_specific_enthalpy").textContent = data.c_specific_enthalpy.toFixed(3) + " kJ/kg";
-              document.getElementById("c_s_moisture_value").textContent = data.c_s_moisture_value.toFixed(3) + " g/kg";
-              document.getElementById("c_specific_enthalpy_dry_air").textContent = data.c_specific_enthalpy_dry_air.toFixed(3) + " kJ/kg";
-              document.getElementById("c_saturation_vapour_pressure").textContent = data.c_saturation_vapour_pressure.toFixed(3) + " Pa";
-              document.getElementById("g6").textContent = data.g6.toFixed(3) + " kW";
-              document.getElementById("g9").textContent = data.g9.toFixed(3) + " litres/s";
-              document.getElementById("g7").textContent = data.g7.toFixed(3) + " kW";
-              document.getElementById("g10").textContent = data.g10.toFixed(3) + " kg/h";
-              document.getElementById("g8").textContent = data.g8.toFixed(3) + " kW";
+              document.getElementById("moisture_content").textContent = data.moisture_content.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " g/kg";
+              document.getElementById("specific_volume").textContent = data.specific_volume.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " m³/kg";
+              document.getElementById("specific_enthalpy").textContent = data.specific_enthalpy.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " kJ/kg";
+              document.getElementById("s_moisture_value").textContent = data.s_moisture_value.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " g/kg";
+              document.getElementById("specific_enthalpy_dry_air").textContent = data.specific_enthalpy_dry_air.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " kJ/kg";
+              document.getElementById("saturation_vapour_pressure").textContent = data.saturation_vapour_pressure.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Pa";
+              document.getElementById("c_moisture_content").textContent = data.c_moisture_content.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " g/kg";
+              document.getElementById("c_specific_volume").textContent = data.c_specific_volume.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " m³/kg";
+              document.getElementById("c_specific_enthalpy").textContent = data.c_specific_enthalpy.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " kJ/kg";
+              document.getElementById("c_s_moisture_value").textContent = data.c_s_moisture_value.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " g/kg";
+              document.getElementById("c_specific_enthalpy_dry_air").textContent = data.c_specific_enthalpy_dry_air.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " kJ/kg";
+              document.getElementById("c_saturation_vapour_pressure").textContent = data.c_saturation_vapour_pressure.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Pa";
+              document.getElementById("g6").textContent = data.g6.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " kW";
+              document.getElementById("g9").textContent = data.g9.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " litres/s";
+              document.getElementById("g7").textContent = data.g7.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " kW";
+              document.getElementById("g10").textContent = data.g10.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " kg/h";
+              document.getElementById("g8").textContent = data.g8.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " kW";
               document.getElementById("sc").innerText = data.sc;
               document.getElementById("dh").innerText = data.dh;
               document.getElementById("wr").innerText = data.wr;
